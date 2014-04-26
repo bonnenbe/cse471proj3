@@ -1,0 +1,8 @@
+C:\Users\Xin\Desktop\StepDX\StepDX\bin\Debug\StepDX.exe
+C:\Users\Xin\Desktop\StepDX\StepDX\bin\Debug\StepDX.pdb
+C:\Users\Xin\Desktop\StepDX\StepDX\obj\x86\Debug\StepDX.Properties.Resources.resources
+C:\Users\Xin\Desktop\StepDX\StepDX\obj\x86\Debug\StepDX.csproj.GenerateResource.Cache
+C:\Users\Xin\Desktop\StepDX\StepDX\obj\x86\Debug\StepDX.exe
+C:\Users\Xin\Desktop\StepDX\StepDX\obj\x86\Debug\StepDX.pdb
+C:\Users\Xin\Desktop\StepDX\StepDX\obj\x86\Debug\StepDX.Game.resources
+C:\Users\Xin\Desktop\StepDX\StepDX\obj\x86\Debug\StepDX.csprojResolveAssemblyReference.cache
