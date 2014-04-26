@@ -132,6 +132,8 @@ namespace StepDX
             player.Color = Color.Transparent;
             player.Transparent = true;
             player.P = new Vector2(0.5f, 1);
+
+            AddTriangle(new Vector2(9f, 3f), 2, .5f, "../../stone08.bmp");
         }
 
         /// <summary>
@@ -300,5 +302,22 @@ namespace StepDX
             world.Add(p);
         }
 
+
+        private void AddTriangle(Vector2 location, float width, float height, string texture)
+        {
+            Texture t = TextureLoader.FromFile(device, texture);
+            PolygonTextured p = new PolygonTextured();
+            p.Tex = t;
+            p.AddVertex(new Vector2(location.X - width / 2, location.Y + height / 2));
+            p.AddTex(new Vector2(0, 1));
+
+            p.AddVertex(new Vector2(location.X + width / 2, location.Y + height / 2));
+            p.AddTex(new Vector2(1, 1));
+
+            p.AddVertex(new Vector2(location.X, location.Y - height / 2));
+            p.AddTex(new Vector2(.5f, 0));
+
+            world.Add(p);
+        }
     }
 }
