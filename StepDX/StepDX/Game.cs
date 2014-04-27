@@ -16,7 +16,8 @@ namespace StepDX
         /// The DirectX device we will draw on
         /// </summary>
         private Device device = null;
-
+        private Score score;
+        private Boolean start;
         /// <summary>
         /// Height of our playing area (meters)
         /// </summary>
@@ -69,7 +70,8 @@ namespace StepDX
 
             if (!InitializeDirect3D())
                 return;
-
+            score = new Score();
+            start = false;
             vertices = new VertexBuffer(typeof(CustomVertex.PositionColored), // Type of vertex
                                         4,      // How many
                                         device, // What device
@@ -181,6 +183,9 @@ namespace StepDX
                         player.STAND = true;
                     }
                 }
+                scorebox.Text = score.time().ToString();
+                if (player.P.X > 5f)
+                    score.stop();
                 delta -= step;
             }
 
@@ -256,6 +261,11 @@ namespace StepDX
 
         protected override void OnKeyDown(System.Windows.Forms.KeyEventArgs e)
         {
+            if (!start)
+            {
+                score.start();
+                start = true;
+            }
             if (e.KeyCode == Keys.Escape)
                 this.Close(); // Esc was pressed
             else if (e.KeyCode == Keys.Right)

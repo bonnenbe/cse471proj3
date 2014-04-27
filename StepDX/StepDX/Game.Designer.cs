@@ -28,20 +28,34 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.scorebox = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // Form1
+            // scorebox
+            // 
+            this.scorebox.AutoSize = true;
+            this.scorebox.Location = new System.Drawing.Point(706, 9);
+            this.scorebox.Name = "scorebox";
+            this.scorebox.Size = new System.Drawing.Size(37, 13);
+            this.scorebox.TabIndex = 0;
+            this.scorebox.Text = "30000";
+            // 
+            // Game
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 462);
-            this.Name = "Form1";
+            this.Controls.Add(this.scorebox);
+            this.Name = "Game";
             this.Text = "Step Game";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
+
+        private System.Windows.Forms.Label scorebox;
     }
 }
 
