@@ -96,7 +96,7 @@ namespace StepDX
             if (p.X < 0)
                 p.X = 0;
             if (p.X > 32)
-                p.X = 32;
+                p.X = 32;                
         }
     }
 }

@@ -34,7 +34,7 @@
             // scorebox
             // 
             this.scorebox.AutoSize = true;
-            this.scorebox.Location = new System.Drawing.Point(706, 9);
+            this.scorebox.Location = new System.Drawing.Point(652, 9);
             this.scorebox.Name = "scorebox";
             this.scorebox.Size = new System.Drawing.Size(37, 13);
             this.scorebox.TabIndex = 0;

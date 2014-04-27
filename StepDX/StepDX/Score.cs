@@ -24,7 +24,6 @@ namespace StepDX
         }
         public double time()
         {
-
             if (running)
             {
                 score = 30000 - (DateTime.Now - startTime).TotalMilliseconds;

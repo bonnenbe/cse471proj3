@@ -17,7 +17,8 @@ namespace StepDX
         /// </summary>
         private Device device = null;
         private Score score;
-        private Boolean start;
+        private bool start;
+        private bool end;
         /// <summary>
         /// Height of our playing area (meters)
         /// </summary>
@@ -72,6 +73,7 @@ namespace StepDX
                 return;
             score = new Score();
             start = false;
+            end = false;
             vertices = new VertexBuffer(typeof(CustomVertex.PositionColored), // Type of vertex
                                         4,      // How many
                                         device, // What device
@@ -148,6 +150,11 @@ namespace StepDX
             float delta = (time - lastTime) * 0.001f;       // Delta time in milliseconds
             lastTime = time;
 
+            if (player.P.X < 10)
+            {
+                score.stop();
+                end = true;
+            }
             while (delta > 0)
             {
 
@@ -162,7 +169,6 @@ namespace StepDX
                 }
 
                 player.Advance(step);
-
                 foreach (Polygon p in world)
                     p.Advance(step);
 
@@ -183,12 +189,8 @@ namespace StepDX
                         player.STAND = true;
                     }
                 }
-                scorebox.Text = score.time().ToString();
-                if (player.P.X > 5f)
-                    score.stop();
                 delta -= step;
             }
-
         }
 
 
@@ -230,6 +232,7 @@ namespace StepDX
                 p.Render(device);
             }
 
+            scorebox.Text = score.time().ToString();
             player.Render(device);
             //End the scene
             device.EndScene();
@@ -271,19 +274,29 @@ namespace StepDX
             else if (e.KeyCode == Keys.Right)
             {
                 Vector2 v = player.V;
-                v.X = 1.5f;
+                if (player.P.X > 10)
+                    v.X = 0f;
+                else
+                    v.X = 1.5f;
                 player.V = v;
             }
             else if (e.KeyCode == Keys.Left)
             {
                 Vector2 v = player.V;
-                v.X = -1.5f;
+                if (player.P.X > 10)
+                    v.X = 0f;
+                else
+                    v.X = -1.5f;
                 player.V = v;
+
             }
             else if (e.KeyCode == Keys.Space && player.STAND == true)
             {
                 Vector2 v = player.V;
-                v.Y = 7;
+                if (player.P.X > 10)
+                    v.Y = 0f;
+                else
+                    v.Y = 7;
                 player.V = v;
                 player.A = new Vector2(0, -9.8f);
                 player.STAND = false;
