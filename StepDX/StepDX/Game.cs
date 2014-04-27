@@ -12,6 +12,8 @@ namespace StepDX
 {
     public partial class Game : Form
     {
+        
+
         /// <summary>
         /// The DirectX device we will draw on
         /// </summary>
@@ -49,6 +51,8 @@ namespace StepDX
         /// </summary>
         private long lastTime;
 
+        private GameSounds snd;
+
         /// <summary>
         /// A stopwatch to use to keep track of time
         /// </summary>
@@ -64,6 +68,8 @@ namespace StepDX
         /// </summary>
         Collision collision = new Collision();
 
+        //are we at t>0?
+        bool beenThanked = false;
 
         public Game()
         {
@@ -74,6 +80,9 @@ namespace StepDX
             score = new Score();
             start = false;
             end = false;
+
+            
+
             vertices = new VertexBuffer(typeof(CustomVertex.PositionColored), // Type of vertex
                                         4,      // How many
                                         device, // What device
@@ -138,6 +147,16 @@ namespace StepDX
             player.P = new Vector2(0.5f, 1);
 
             AddTriangle(new Vector2(9f, 3f), 2, .5f, "../../stone08.bmp");
+
+            
+        }
+
+        /// <summary>
+        /// Set the sound object for the game
+        /// </summary>
+        public void setSounds(GameSounds newSnd)
+        {
+            snd = newSnd;
         }
 
         /// <summary>
@@ -145,6 +164,9 @@ namespace StepDX
         /// </summary>
         public void Advance()
         {
+
+            
+
             // How much time change has there been?
             long time = stopwatch.ElapsedMilliseconds;
             float delta = (time - lastTime) * 0.001f;       // Delta time in milliseconds
@@ -152,8 +174,17 @@ namespace StepDX
 
             if (player.P.X < 10)
             {
+                snd.SoundSong();
                 score.stop();
                 end = true;
+            }
+            else
+            {
+                if (!beenThanked)
+                {
+                    beenThanked = true;
+                    snd.SoundThanks();
+                }
             }
             while (delta > 0)
             {
@@ -181,12 +212,29 @@ namespace StepDX
                         player.P = player.P + collision.N * depth;
                         Vector2 v = player.V;
                         if (collision.N.X != 0)
+                        {
+                            snd.SoundCollision();
                             v.X = 0;
+                        }
                         if (collision.N.Y != 0)
+                        {
                             v.Y = 0;
+                        }
+                       if (collision.N.Y < -0.1)
+                       {
+                           snd.SoundCollision();
+                       }
                         player.V = v;
                         player.Advance(0);
-                        player.STAND = true;
+                        if (collision.N.Y > 0)
+                        {
+                            player.STAND = true;
+                        }
+                    }
+                    collision.ClearNormal();
+                    if (player.V.Y < -3.0 && player.STAND == false)
+                    {
+                        snd.SoundDeath();
                     }
                 }
                 delta -= step;
@@ -264,6 +312,7 @@ namespace StepDX
 
         protected override void OnKeyDown(System.Windows.Forms.KeyEventArgs e)
         {
+
             if (!start)
             {
                 score.start();

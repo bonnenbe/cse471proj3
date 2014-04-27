@@ -16,6 +16,8 @@ namespace StepDX
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Game game = new Game();
+            GameSounds snd = new GameSounds(game);
+            game.setSounds(snd);
             game.Show();
             do
             {

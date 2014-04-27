@@ -22,6 +22,8 @@ namespace StepDX
 {
     class Collision
     {
+        
+
         /// <summary>
         /// First polygon collision test result (one with the vertex)
         /// </summary>
@@ -61,6 +63,16 @@ namespace StepDX
         /// True if polygon 1 has the vertex inside polygon 2 edge
         /// </summary>
         public bool P1inP2 { get { return p1inp2; } }
+
+        /// <summary>
+        /// Clears the member variable normal vector
+        /// </summary>
+        public void ClearNormal()
+        {
+            n.X = 0;
+            n.Y = 0;
+
+        }
 
         /// <summary>
         /// Performs a collision test for two polygons.
