@@ -110,14 +110,6 @@ namespace StepDX
             AddObstacle(5.5f, 6.5f, 3.2f, 3.4f, Color.PeachPuff);
             AddObstacle(6.5f, 7.5f, 2.5f, 2.7f, Color.Chocolate);
 
-            Platform platform = new Platform();
-            platform.AddVertex(new Vector2(3.2f, 2));
-            platform.AddVertex(new Vector2(3.9f, 2));
-            platform.AddVertex(new Vector2(3.9f, 1.8f));
-            platform.AddVertex(new Vector2(3.2f, 1.8f));
-            platform.Color = Color.CornflowerBlue;
-            world.Add(platform);
-
             Texture texture = TextureLoader.FromFile(device, "../../stone08.bmp");
             PolygonTextured pt = new PolygonTextured();
             pt.Tex = texture;
@@ -146,7 +138,12 @@ namespace StepDX
             player.Transparent = true;
             player.P = new Vector2(0.5f, 1);
 
-            AddTriangle(new Vector2(9f, 3f), 2, .5f, "../../stone08.bmp");
+            AddTriangle(new Vector2(1.5f, 1.1f), 1.5f, .2f, "../../crazy.png");
+            AddTriangle(new Vector2(3f, 2.3f), 1, .6f, "../../irontop.png");
+            AddTriangle(new Vector2(4f, 2.5f), .8f, .5f, "../../bluething.jpg");
+            AddTriangle(new Vector2(5f, 3f), .2f, .4f, "../../stone08.bmp");
+            AddTriangle(new Vector2(6f, 2f), 1.2f, .35f, "../../planet.png");
+            AddTriangle(new Vector2(7f, 4f), 1.11f, 1, "../../irontop.png");
 
             
         }
