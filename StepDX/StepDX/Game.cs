@@ -17,7 +17,6 @@ namespace StepDX
         /// </summary>
         private Device device = null;
         private Score score;
-        private bool start;
         private bool end;
         /// <summary>
         /// Height of our playing area (meters)
@@ -82,10 +81,8 @@ namespace StepDX
             if (!InitializeDirect3D())
                 return;
             score = new Score();
-            start = false;
+            score.start();
             end = false;
-
-            
 
             vertices = new VertexBuffer(typeof(CustomVertex.PositionColored), // Type of vertex
                                         4,      // How many
@@ -333,12 +330,6 @@ namespace StepDX
 
         protected override void OnKeyDown(System.Windows.Forms.KeyEventArgs e)
         {
-
-            if (!start)
-            {
-                score.start();
-                start = true;
-            }
             if (e.KeyCode == Keys.Escape)
                 this.Close(); // Esc was pressed
             else if (e.KeyCode == Keys.Right)
