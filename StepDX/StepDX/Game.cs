@@ -12,8 +12,6 @@ namespace StepDX
 {
     public partial class Game : Form
     {
-        
-
         /// <summary>
         /// The DirectX device we will draw on
         /// </summary>
@@ -70,6 +68,12 @@ namespace StepDX
 
         //are we at t>0?
         bool beenThanked = false;
+        
+        /// <summary>
+        /// The sky
+        /// </summary>
+        Sky sky = new Sky();
+
 
         public Game()
         {
@@ -89,7 +93,7 @@ namespace StepDX
                                         0,      // No special usage
                                         CustomVertex.PositionColored.Format,
                                         Pool.Managed);
-
+            
             background = new Background(device, playingW, playingH);
 
             // Determine the last time
@@ -97,10 +101,10 @@ namespace StepDX
             lastTime = stopwatch.ElapsedMilliseconds;
 
             Polygon floor = new Polygon();
-            floor.AddVertex(new Vector2(0, 1));
-            floor.AddVertex(new Vector2(playingW, 1));
-            floor.AddVertex(new Vector2(playingW, 0.9f));
-            floor.AddVertex(new Vector2(0, 0.9f));
+            floor.AddVertex(new Vector2(0, .1f));
+            floor.AddVertex(new Vector2(playingW, .1f));
+            floor.AddVertex(new Vector2(playingW, 0));
+            floor.AddVertex(new Vector2(0, 0));
             floor.Color = Color.CornflowerBlue;
             world.Add(floor);
 
@@ -124,19 +128,30 @@ namespace StepDX
             pt.Color = Color.Transparent;
             world.Add(pt);
 
-            Texture spritetexture = TextureLoader.FromFile(device, "../../guy8.bmp");
+            Texture spritetexture = TextureLoader.FromFile(device, "../../sprite_guy.png");
             player.Tex = spritetexture;
             player.AddVertex(new Vector2(-0.2f, 0));
-            player.AddTex(new Vector2(0, 1));
+            player.AddTex(new Vector2(0, .8f));
             player.AddVertex(new Vector2(-0.2f, 1));
             player.AddTex(new Vector2(0, 0));
             player.AddVertex(new Vector2(0.2f, 1));
             player.AddTex(new Vector2(0.125f, 0));
             player.AddVertex(new Vector2(0.2f, 0));
-            player.AddTex(new Vector2(0.125f, 1));
+            player.AddTex(new Vector2(0.125f, .8f));
             player.Color = Color.Transparent;
             player.Transparent = true;
-            player.P = new Vector2(0.5f, 1);
+            player.P = new Vector2(0.5f, .1f);
+
+            Texture skytexture = TextureLoader.FromFile(device, "../../night-sky.png");
+            sky.Tex = skytexture;
+            sky.AddVertex(new Vector2(0,0));
+            sky.AddTex(new Vector2(0,1));
+            sky.AddVertex(new Vector2(0,playingH));
+            sky.AddTex(new Vector2(0,0));
+            sky.AddVertex(new Vector2((float)Width/(float)Height*playingH,playingH));
+            sky.AddTex(new Vector2(1,0));
+            sky.AddVertex(new Vector2((float)Width/(float)Height*playingH, 0));
+            sky.AddTex(new Vector2(1,1));
 
             AddTriangle(new Vector2(1.5f, 1.1f), 1.5f, .2f, "../../crazy.png");
             AddTriangle(new Vector2(3f, 2.3f), 1, .6f, "../../irontop.png");
@@ -196,7 +211,13 @@ namespace StepDX
                     step = (float)Math.Min(step, 0.05 / maxspeed);
                 }
 
+
+                
                 player.Advance(step);
+                if (!(player.P.X - (float)Width / (float)Height * playingH / 2 < 0))
+                    sky.Advance(player.P.X - (float)Width/(float)Height * playingH/2);
+                else sky.Advance(0);
+
                 foreach (Polygon p in world)
                     p.Advance(step);
 
@@ -268,6 +289,9 @@ namespace StepDX
 
             //Begin the scene
             device.BeginScene();
+            
+            //render the sky
+            sky.Render(device);
 
             // Render the background
             background.Render();

@@ -57,35 +57,35 @@ namespace StepDX
 
             if (v.X == 0)
             {
-                spriteNum = 5;
+                spriteNum = 7;
                 spriteTime = 0;
             }
             else
             {
                 spriteTime += dt;
-                spriteNum = (int)(spriteTime * spriteRate) % 4;     // 4 images
+                spriteNum = (int)(spriteTime * spriteRate) % 6 + 1;     // 6 images
             }
             if (v.Y != 0 && stand == false)
             {
-                spriteNum = 7;
+                spriteNum = 11;
             }
             // Create the texture vertices
             textureC.Clear();
             if (v.X >= 0)
             {
-                textureC.Add(new Vector2(spriteNum * 0.125f, 1));
-                textureC.Add(new Vector2(spriteNum * 0.125f, 0));
-                textureC.Add(new Vector2((spriteNum + 1) * 0.125f, 0));
-                textureC.Add(new Vector2((spriteNum + 1) * 0.125f, 1));
+                textureC.Add(new Vector2(spriteNum * 0.067f + .01f, .7f));
+                textureC.Add(new Vector2(spriteNum * 0.067f + .01f, 0));
+                textureC.Add(new Vector2((spriteNum + 1) * 0.067f -.01f, 0));
+                textureC.Add(new Vector2((spriteNum + 1) * 0.067f -.01f, .7f));
             }
             else
             {
                 // If moving in the negative direction, we draw our sprite 
                 // as a mirror image.
-                textureC.Add(new Vector2((spriteNum + 1) * 0.125f, 1));
-                textureC.Add(new Vector2((spriteNum + 1) * 0.125f, 0));
-                textureC.Add(new Vector2(spriteNum * 0.125f, 0));
-                textureC.Add(new Vector2(spriteNum * 0.125f, 1));
+                textureC.Add(new Vector2((spriteNum + 1) * 0.067f - .01f, .7f));
+                textureC.Add(new Vector2((spriteNum + 1) * 0.067f - .01f, 0));
+                textureC.Add(new Vector2(spriteNum * 0.067f + .01f, 0));
+                textureC.Add(new Vector2(spriteNum * 0.067f + .01f, .7f));
             }
             // Move the vertices
             verticesM.Clear();

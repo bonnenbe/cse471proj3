@@ -31,7 +31,7 @@ namespace StepDX
             this.device = device;
 
             // Load the background texture image
-            backgroundT = TextureLoader.FromFile(device, "../../mars.bmp");
+            backgroundT = TextureLoader.FromFile(device, "../../city_desktop.png");
 
             // Create a vertex buffer for the background image we will draw
             backgroundV = new VertexBuffer(typeof(CustomVertex.PositionColoredTextured), // Type
@@ -58,11 +58,17 @@ namespace StepDX
         /// </summary>
         public void Render()
         {
+            device.RenderState.AlphaBlendEnable = true;
+            device.RenderState.SourceBlend = Blend.SourceAlpha;
+            device.RenderState.DestinationBlend = Blend.InvSourceAlpha;
+
             device.SetTexture(0, backgroundT);
             device.SetStreamSource(0, backgroundV, 0);
             device.VertexFormat = CustomVertex.PositionColoredTextured.Format;
             device.DrawPrimitives(PrimitiveType.TriangleFan, 0, 2);
             device.SetTexture(0, null);
+
+            device.RenderState.AlphaBlendEnable = false;
         }
 
     }

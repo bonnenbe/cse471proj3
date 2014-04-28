@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Background.cs" />
+    <Compile Include="Sky.cs" />
     <Compile Include="Collision.cs" />
     <Compile Include="Game.cs">
       <SubType>Form</SubType>
